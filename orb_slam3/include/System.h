@@ -135,6 +135,11 @@ public:
     void Reset();
     void ResetActiveMap();
 
+
+    // Eemil custom func.
+
+    void ChangeMapService(int index);
+
     // All threads will be requested to finish.
     // It waits until all threads have finished.
     // This function must be called before saving the trajectory.
@@ -195,6 +200,7 @@ public:
     void ChangeDataset();
 
     float GetImageScale();
+
 
 #ifdef REGISTER_TIMES
     void InsertRectTime(double& time);

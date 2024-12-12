@@ -62,11 +62,14 @@ find_package(Pangolin REQUIRED)
 add_service_files(
   FILES
   SaveMap.srv
+  ChangeMap.srv
+  SetPose.srv
 )
 
 generate_messages(
   DEPENDENCIES
   std_msgs
+  geometry_msgs
 )
 
 catkin_package (
@@ -177,17 +180,17 @@ target_link_libraries(ros_mono
 )
 
 ## ROS node
-add_executable(ros_mono_inertial 
+add_executable(ros_mono_inertial
   src/ros_mono_inertial.cc
   src/common.cc
 )
-target_link_libraries(ros_mono_inertial 
+target_link_libraries(ros_mono_inertial
   ${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
 
 ## ROS node
-add_executable(ros_stereo 
+add_executable(ros_stereo
   src/ros_stereo.cc
   src/common.cc
 )
@@ -201,7 +204,7 @@ add_executable(ros_stereo_inertial
   src/ros_stereo_inertial.cc
   src/common.cc
 )
-target_link_libraries(ros_stereo_inertial 
+target_link_libraries(ros_stereo_inertial
   ${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )

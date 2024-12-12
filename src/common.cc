@@ -56,10 +56,28 @@ bool save_traj_srv(orb_slam3_ros::SaveMap::Request &req, orb_slam3_ros::SaveMap:
     return res.success;
 }
 
+bool set_initial_pose(orb_slam3_ros::SetPose::Request &req, orb_slam3_ros::SetPose::Response &res) {
+
+
+
+    res.success = true;
+    return res.success;
+}
+
+bool change_map_srv(orb_slam3_ros::ChangeMap::Request &req, orb_slam3_ros::ChangeMap::Response &res) {
+    
+    pSLAM->ChangeMapService(req.index);
+
+    res.success = true;
+    return res.success;
+}
+
 void setup_services(ros::NodeHandle &node_handler, std::string node_name)
 {
     static ros::ServiceServer save_map_service = node_handler.advertiseService(node_name + "/save_map", save_map_srv);
     static ros::ServiceServer save_traj_service = node_handler.advertiseService(node_name + "/save_traj", save_traj_srv);
+    static ros::ServiceServer change_map_service = node_handler.advertiseService(node_name + "/change_map", change_map_srv);
+    static ros::ServiceServer set_pose_service = node_handler.advertiseService(node_name + "/set_pose", set_initial_pose);
 }
 
 void setup_publishers(ros::NodeHandle &node_handler, image_transport::ImageTransport &image_transport, std::string node_name)

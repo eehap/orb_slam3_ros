@@ -105,6 +105,14 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
         activeLC = static_cast<int>(fsSettings["loopClosing"]) != 0;
     }
 
+    node = fsSettings["initialPose"];
+    bool initialPose = false;
+    if(!node.empty()) {
+        cout << "Initial pose flag enabled" << endl;
+        initialPose = static_cast<int>(fsSettings["initialPose"]) != 0;
+    }
+
+
     mStrVocabularyFilePath = strVocFile;
     
     //Load ORB Vocabulary
@@ -149,7 +157,8 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
         loadedAtlas = true;
 
-        mpAtlas->CreateNewMap();
+        vector<Map*> map_vec = mpAtlas->GetAllMaps();
+        mpAtlas->ChangeMap(map_vec[1]);
 
         //clock_t timeElapsed = clock() - start;
         //unsigned msElapsed = timeElapsed / (CLOCKS_PER_SEC / 1000);
@@ -457,7 +466,9 @@ Sophus::SE3f System::TrackMonocular(const cv::Mat &im, const double &timestamp, 
     return Tcw;
 }
 
-
+void System::ChangeMapService(int index) {
+    mpAtlas->ChangeMapbIndex(index);
+}
 
 void System::ActivateLocalizationMode()
 {

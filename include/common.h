@@ -6,6 +6,7 @@
 #include <queue>
 #include <thread>
 #include <mutex>
+#include <memory>
 #include <Eigen/Dense>
 
 #include <ros/ros.h>
@@ -28,10 +29,14 @@
 #include <message_filters/sync_policies/approximate_time.h>
 
 #include <orb_slam3_ros/SaveMap.h> // This file is created automatically, see here http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv#Creating_a_srv
+#include <orb_slam3_ros/ChangeMap.h>
+#include <orb_slam3_ros/SetPose.h>
 
 // ORB-SLAM3-specific libraries
 #include "System.h"
 #include "ImuTypes.h"
+#include "Atlas.h"
+#include "Map.h"
 
 extern ORB_SLAM3::System* pSLAM;
 extern ORB_SLAM3::System::eSensor sensor_type;

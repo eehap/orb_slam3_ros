@@ -78,6 +78,7 @@ public:
 
     void CreateNewMap();
     void ChangeMap(Map* pMap);
+    void ChangeMapbIndex(int index);
 
     unsigned long int GetLastInitKFid();
 

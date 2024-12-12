@@ -76,6 +76,11 @@ void Atlas::CreateNewMap()
     mspMaps.insert(mpCurrentMap);
 }
 
+void Atlas::ChangeMapbIndex(int index) {
+    vector<Map*> vMaps = GetAllMaps();
+    ChangeMap(vMaps[index]);
+}
+
 void Atlas::ChangeMap(Map* pMap)
 {
     unique_lock<mutex> lock(mMutexAtlas);
