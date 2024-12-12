@@ -2072,7 +2072,7 @@ void Tracking::Track()
         else
         {
             // Localization Mode: Local Mapping is deactivated (TODO Not available in inertial mode)
-            if(mState==LOST)
+            if(mState==LOST || mState==RECENTLY_LOST)
             {
                 if(mSensor == System::IMU_MONOCULAR || mSensor == System::IMU_STEREO || mSensor == System::IMU_RGBD)
                     Verbose::PrintMess("IMU. State LOST", Verbose::VERBOSITY_NORMAL);
@@ -2402,8 +2402,15 @@ void Tracking::StereoInitialization()
             Vwb0.setZero();
             mCurrentFrame.SetImuPoseVelocity(Rwb0, twb0, Vwb0);
         }
-        else
+        
+        // Set intial frame pose to predefined val
+        else if (false) {
+            mCurrentFrame.SetPose(Sophus::SE3f(Eigen::Quaternionf(1.0, 0.0, 0.0, 0.0), Eigen::Vector3f(10.0, 10.0, 10.0)));
+        }
+
+        else {
             mCurrentFrame.SetPose(Sophus::SE3f());
+        }
 
         // Create KeyFrame
         KeyFrame* pKFini = new KeyFrame(mCurrentFrame,mpAtlas->GetCurrentMap(),mpKeyFrameDB);
